@@ -1,0 +1,49 @@
+@MinimalWeb_HostAddress = https://localhost:7005
+@id = 56
+
+POST {{MinimalWeb_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "email":"test@pasit.nl",
+  "password":"Test_12345"
+}
+###
+
+# @name login
+POST {{MinimalWeb_HostAddress}}/login
+Content-Type: application/json
+{
+  "email":"test@pasit.nl",
+  "password":"Test_12345"
+}
+### 
+
+GET {{MinimalWeb_HostAddress}}/brands
+Accept: application/json
+Authorization: Bearer  {{login.response.body.$.accessToken}}
+###
+
+POST {{MinimalWeb_HostAddress}}/brands
+Content-Type: application/json
+
+{
+  "name":"Test"
+}
+###
+
+GET {{MinimalWeb_HostAddress}}/brands/{{id}}
+Accept: application/json
+###
+
+PUT {{MinimalWeb_HostAddress}}/brands/{{id}}
+Content-Type: application/json
+
+{
+  "name":"Test2"
+}
+###
+
+DELETE {{MinimalWeb_HostAddress}}/brands/{{id}}
+
+###
