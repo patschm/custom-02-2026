@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="EvolutieTheorie/EvolutieTheorie.csproj" Id="2451a17f-94f2-415d-8e5b-f71bfb84e14e" />
+  <Project Path="MeerInteractie/MeerInteractie.csproj" />
+  <Project Path="Miniem/Miniem.csproj" Id="d4a5a180-d818-4169-b471-b099a272691f" />
+  <Project Path="Objecten/Objecten.csproj" />
+  <Project Path="Swapper/Swapper.csproj" Id="235245ff-3dbc-4500-a12e-cf397e96b761" />
+</Solution>

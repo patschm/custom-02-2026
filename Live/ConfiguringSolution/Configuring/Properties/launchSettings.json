@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Configuring": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MY_ENV": "Hello launc"
+      }
+    }
+  }
+}

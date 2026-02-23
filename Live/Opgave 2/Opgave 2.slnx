@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DeEther/DeEther.csproj" />
+  <Project Path="DeWetenschap/DeWetenschap.csproj" />
+  <Project Path="WinFormsApp1/WinFormsApp1.csproj" />
+</Solution>

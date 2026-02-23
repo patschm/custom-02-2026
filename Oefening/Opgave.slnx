@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="ABC/ABC.csproj" />
+  <Project Path="Axis/Axis.csproj" />
+  <Project Path="DoomsdayPreppers/DoomsdayPreppers.csproj" />
+  <Project Path="Heras/Heras.csproj" />
+  <Project Path="Oprijlaan/Oprijlaan.csproj" />
+  <Project Path="Standards/Standards.csproj" Id="7ab5f346-39b6-4e21-87b2-0f844476e149" />
+</Solution>
