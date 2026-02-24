@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="Configuring/Configuring.csproj" />
+  <Project Path="Crypto.Confidentiality/Crypto.Confidentiality.csproj" Id="9a490f51-d17d-4c80-a7b2-c1b28de5a918" />
+  <Project Path="Crypto.Hash/Crypto.Hash.csproj" Id="9ae0f8dd-79d5-43ab-9034-333723639bff" />
 </Solution>

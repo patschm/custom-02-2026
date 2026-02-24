@@ -1,5 +1,8 @@
 ﻿
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.WebSockets;
 
 namespace Configuring;
 
@@ -8,7 +11,27 @@ internal class Program
     static void Main(string[] args)
     {
         //ViaEnvironment();
-        ViaConfiguration();
+        //ViaConfiguration();
+        TestDataProtectionApi();
+    }
+
+    private static void TestDataProtectionApi()
+    {
+        var factory = new DefaultServiceProviderFactory();
+        var services = new ServiceCollection();
+        var builder = factory.CreateBuilder(services);
+        services.AddDataProtection();
+
+        var provider = builder.BuildServiceProvider();
+       var prot =  provider.GetRequiredService<IDataProtectionProvider>();
+
+       var prot2 =  prot.CreateProtector("demo-purpose");
+       var test = prot2.Protect("Hello world");
+        Console.WriteLine(test);
+
+        var res = prot2.Unprotect(test);
+        Console.WriteLine(res);
+
     }
 
     private static void ViaConfiguration()
