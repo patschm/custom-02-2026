@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -10,7 +11,7 @@ namespace DemoPerformance;
 
 internal class Program
 {
-    public static string connectionString = @"Server=.\SQLEXPRESS;Database=ShopDatabase;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true;Encrypt=False";
+    public static string connectionString = @"Data Source=.\SqlExpress;Initial Catalog=ProductCatalog;Persist Security Info=False;User ID=sa;Password=Test_1234567;Pooling=False;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;";
 
     static void Main(string[] args)
     {
@@ -18,10 +19,48 @@ internal class Program
         //ConnectionPooling();
         //CompiledModels();
         //CompiledQueries();
-        BenchmarkSwitcher.FromTypes([typeof(BenchMarking)]).RunAll();
+        // BenchmarkSwitcher.FromTypes([typeof(BenchMarking)]).RunAll();
 
         //PerformanceCounters();
 
+        var q = PasOp();
+        var query = q.Where(p => p.Name.StartsWith("P"));
+        Console.WriteLine(q.Count());
+        //foreach(var p in query)
+        //{
+        //     Console.WriteLine(p.Name);
+        // }
+
+        Problem2();
+
+    }
+
+    private static void Problem2()
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<ProductContext>();
+        optionsBuilder.UseSqlServer(connectionString);
+
+        var context = new ProductContext(optionsBuilder.Options);
+
+        context.Products.Select(DoeIets); // Niet OK. Altijd lambda's
+    }
+
+    static Test DoeIets(Product p)
+    {
+        var t = new Test { A = p.Name, B = p.Brand.Name };
+        return t;
+    }
+
+    private static IEnumerable<Product> PasOp()
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<ProductContext>();
+        optionsBuilder.UseSqlServer(connectionString);
+
+        var context = new ProductContext(optionsBuilder.Options);
+
+        var query = from g in context.Products select g;
+        
+        return query;
     }
 
     private static void PerformanceCounters()
