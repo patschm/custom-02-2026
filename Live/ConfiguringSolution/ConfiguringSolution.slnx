@@ -2,4 +2,5 @@
   <Project Path="Configuring/Configuring.csproj" />
   <Project Path="Crypto.Confidentiality/Crypto.Confidentiality.csproj" Id="9a490f51-d17d-4c80-a7b2-c1b28de5a918" />
   <Project Path="Crypto.Hash/Crypto.Hash.csproj" Id="9ae0f8dd-79d5-43ab-9034-333723639bff" />
+  <Project Path="Houthakker/Houthakker.csproj" Id="16049063-c872-46b9-8454-67ac0e7880a7" />
 </Solution>
