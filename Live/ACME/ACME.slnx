@@ -2,4 +2,5 @@
   <Project Path="ACME.Client/ACME.Client.csproj" />
   <Project Path="ACME.DataSvc/ACME.DataSvc.csproj" />
   <Project Path="ACME.DTOs/ACME.DTOs.csproj" />
+  <Project Path="Pagina/Pagina.csproj" />
 </Solution>
