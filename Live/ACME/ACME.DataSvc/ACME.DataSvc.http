@@ -1,0 +1,6 @@
+@ACME.DataSvc_HostAddress = https://localhost:7082
+
+GET {{ACME.DataSvc_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

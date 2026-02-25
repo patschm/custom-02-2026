@@ -8,8 +8,8 @@ namespace DemoTransactions;
 
 internal class Program
 {
-    public static string connectionString = @"Server=.\SQLEXPRESS;Database=ShopDatabase;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true;Encrypt=False";
-    public static string backupConnectionString = @"Server=.\SQLEXPRESS;Database=ShopDatabaseBackup;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true;Encrypt=False";
+    public static string connectionString = @"Data Source=.\SqlExpress;Initial Catalog=ProductCatalog;Persist Security Info=False;User ID=sa;Password=Test_1234567;Pooling=False;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;";
+    public static string backupConnectionString = @"Data Source=.\SqlExpress;Initial Catalog=ProductCatalogHistory;Persist Security Info=False;User ID=sa;Password=Test_1234567;Pooling=False;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=True;";
     
     static void Main(string[] args)
     {
@@ -63,6 +63,7 @@ internal class Program
         var brand1 = new Brand { Name = "Brand 1", Website = "https://www.brand_1.nl" };
         var brand2 = new Brand { Name = "Brand 2", Website = "https://www.brand_2.nl" };//, Id=1 };
 
+        //connection.BeginTransaction()
         using (var tran = context.Database.BeginTransaction())
         {
             context.Brands.Add(brand1);
@@ -126,6 +127,7 @@ internal class Program
         // a different transaction manager on each platform.
         // Distributed Transactions will be supported in EF 7 and .NET 7 but only for the Windows platform
 
+        TransactionManager.ImplicitDistributedTransactions = true;
         var optionsBuilder = new DbContextOptionsBuilder();
         optionsBuilder.UseSqlServer(connectionString);
         var context = new ProductContext(optionsBuilder.Options);
@@ -207,8 +209,8 @@ internal class Program
         // 2) Non-repeatable reads. Same query returns different results
         // 3) Phantom Reads. New rows are added or removed by another transaction to the records being read.
         //DirtyReads();
-        //NonRepeatableReads();
-        PhantomReads();
+        NonRepeatableReads();
+       // PhantomReads();
 
         Console.ReadLine();
     }
@@ -220,7 +222,7 @@ internal class Program
         var context2 = new ProductContext(optionsBuilder.Options);
 
         // Set the isolation level
-        var isoLevel = System.Data.IsolationLevel.ReadUncommitted;
+        var isoLevel = System.Data.IsolationLevel.ReadCommitted;
 
         using var readTransaction = context1.Database.BeginTransaction(isoLevel);
         using var writeTransaction = context2.Database.BeginTransaction();
@@ -279,7 +281,7 @@ internal class Program
         });
 
         var readData = Task.Run(() => {
-            var isoLevel = System.Data.IsolationLevel.ReadCommitted;
+            var isoLevel = System.Data.IsolationLevel.RepeatableRead;
             using var readTransaction = context1.Database.BeginTransaction(isoLevel);
             var query = context1.Brands.AsNoTracking();
 

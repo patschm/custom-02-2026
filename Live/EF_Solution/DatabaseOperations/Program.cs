@@ -11,7 +11,10 @@ internal class Program
     static void Main(string[] args)
     {
         var bld = new DbContextOptionsBuilder();
-        bld.UseSqlServer(conStr);
+        bld.UseSqlServer(conStr, opts => {
+            opts.MinBatchSize(64);
+            
+        });
         bld.LogTo(Console.WriteLine);
 
         var context = new ShopContext(bld.Options);
@@ -29,7 +32,7 @@ internal class Program
 
         //context.SaveChanges();
 
-        var b = context.Brands.FirstOrDefault();
+        var b = context.Brands.AsNoTracking().FirstOrDefault();
         b.Name = "Technics";
 
         foreach (var item in context.ChangeTracker.Entries())

@@ -28,6 +28,7 @@ internal class Program
         var optionsBuilder = new DbContextOptionsBuilder();
         optionsBuilder.UseSqlServer(connectionString);
         var context = new ProductContext(optionsBuilder.Options);
+
         var pg = context.ProductGroups.First();
 
         var entry = context.Entry(pg);
