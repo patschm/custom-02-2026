@@ -15,6 +15,14 @@ namespace ACME.DataSvc
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddCors(conf => {
+                conf.AddPolicy("AllesMag", pol => { 
+                    pol.AllowAnyHeader();
+                    pol.AllowAnyMethod();
+                    pol.AllowAnyOrigin();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,7 +32,7 @@ namespace ACME.DataSvc
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllesMag");
             app.UseAuthorization();
 
 
